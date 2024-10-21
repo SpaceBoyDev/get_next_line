@@ -6,11 +6,31 @@
 /*   By: dario <dario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:25:23 by darmarti          #+#    #+#             */
-/*   Updated: 2024/10/17 19:06:35 by dario            ###   ########.fr       */
+/*   Updated: 2024/10/21 20:23:14 by dario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*ft_cleanbuffer(char *buffer)
+{
+	char	*clean_buffer;
+	size_t	i;
+
+	i = 0;
+	while (buffer[i] != '\n')
+		++i;
+	clean_buffer = ft_calloc(i + 2, sizeof(char));
+	if (!clean_buffer)
+		return (NULL);
+	i = 0;
+	while (buffer[i - 1] != '\n')
+	{
+		clean_buffer[i] = buffer[i];
+		++i;
+	}
+	return (clean_buffer);
+}
 
 char	*get_next_line(int fd)
 {
@@ -29,7 +49,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 
 	printf("\nfd -> %d\n\n", fd);
-	line = ft_strjoin(NULL, all_lines[fd]);
+	line = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	bytes_read = 1;
 	while(!ft_strchr(buffer, '\n') && bytes_read > 0)
 	{
@@ -38,10 +58,14 @@ char	*get_next_line(int fd)
 			return (NULL);
 		if (bytes_read == 0)
 			break ;
-		//if (!ft_strchr(buffer, '\n'))
+		if (ft_strchr(buffer, '\n'))
+		{
+			printf("Buffer -> %s\nBufferC ->%s\n", buffer, ft_cleanbuffer(buffer));
+			line = ft_strjoin(line, ft_cleanbuffer(buffer));
+		}
+		else
 			line = ft_strjoin(line, buffer);
 	}
-
 	free(buffer);
 	return (line);
 }
