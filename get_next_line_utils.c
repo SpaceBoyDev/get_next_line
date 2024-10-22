@@ -6,7 +6,7 @@
 /*   By: dario <dario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:25:20 by darmarti          #+#    #+#             */
-/*   Updated: 2024/10/17 18:00:09 by dario            ###   ########.fr       */
+/*   Updated: 2024/10/22 21:07:56 by dario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 size_t	ft_strlen(const char *s)
 {
 	size_t	len;
+
+	if (!s)
+		return (0);
 
 	len = 0;
 	while (s[len] != '\0')
