@@ -6,7 +6,7 @@
 /*   By: dario <dario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:25:23 by darmarti          #+#    #+#             */
-/*   Updated: 2024/10/23 17:47:29 by dario            ###   ########.fr       */
+/*   Updated: 2024/10/23 19:53:08 by dario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ char	*ft_cleanline(char *line)
 	size_t	i;
 
 	i = 0;
-	while (line[i] != '\n')
+	while (line[i] != '\n' && line[i])
 		++i;
+
 	clean_line = (char *)ft_calloc(i + 2, sizeof(char));
 	if (!clean_line)
 		return (NULL);
 	i = 0;
-	while (line[i] != '\n')
+	while (line[i] != '\n' && line[i])
 	{
 		clean_line[i] = line[i];
 		++i;
@@ -87,11 +88,13 @@ char	*get_next_line(int fd)
 	if (!last_buffer[fd])
 		last_buffer[fd] = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	buffer = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0 || !buffer || !last_buffer)
+	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0 || !buffer || !last_buffer[fd])
 		return (NULL);
+
 	//printf("\nfd -> %d\n\n", fd);
 	//line = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	line = ft_strjoin(NULL, last_buffer[fd]);
+
 	bytes_read = 1;
 	while (!ft_strchr(buffer, '\n') && bytes_read > 0 && !ft_strchr(line, '\n'))
 	{
@@ -103,10 +106,14 @@ char	*get_next_line(int fd)
 		line = ft_strjoin(line, buffer);
 		last_buffer[fd] = ft_strjoin(last_buffer[fd], buffer);
 	}
+
 	line = ft_cleanline(line);
+
 	//line = ft_strjoin(line, ft_cleanbuffer(buffer));
 	//last_buffer[fd] = (NULL, buffer);
+
 	last_buffer[fd] = ft_clean_last_buffer(last_buffer[fd]);
 	free(buffer);
+
 	return (line);
 }
