@@ -6,7 +6,7 @@
 /*   By: dario <dario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:25:23 by darmarti          #+#    #+#             */
-/*   Updated: 2024/10/23 20:01:37 by dario            ###   ########.fr       */
+/*   Updated: 2024/10/25 19:49:47 by dario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ static char	*ft_cleanline(char *line)
 		clean_line[i] = line[i];
 		++i;
 	}
-	clean_line[i] = '\n';
+	if (line[i] == '\n')
+		clean_line[i] = '\n';
+	else
+		clean_line[i] = 3;
 	return (clean_line);
 }
 
@@ -44,7 +47,7 @@ static char	*ft_clean_last_buffer(char *buffer)
 		return (NULL);
 	len = ft_strlen(buffer);
 	i = 0;
-	while (buffer[i] != '\n')
+	while (buffer[i] != '\n' && buffer[i])
 		++i;
 	++i;
 	new_last_buffer = ft_calloc((len - i + 1), sizeof(char));
@@ -80,8 +83,8 @@ char	*get_next_line(int fd)
 		line = ft_strjoin(line, buffer);
 		last_buffer[fd] = ft_strjoin(last_buffer[fd], buffer);
 	}
-	line = ft_cleanline(line);
 	last_buffer[fd] = ft_clean_last_buffer(last_buffer[fd]);
+	line = ft_cleanline(line);
 	free(buffer);
 	return (line);
 }
