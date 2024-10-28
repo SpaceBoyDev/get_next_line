@@ -6,7 +6,7 @@
 /*   By: dario <dario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:25:20 by darmarti          #+#    #+#             */
-/*   Updated: 2024/10/23 20:01:17 by dario            ###   ########.fr       */
+/*   Updated: 2024/10/28 17:18:48 by dario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return ((unsigned char *)ptr);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	size_t	i;
 	size_t	s1_len;
@@ -64,6 +64,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		str[i] = s2[i - s1_len];
 		++i;
 	}
+	free(s1);
 	return (str);
 }
 

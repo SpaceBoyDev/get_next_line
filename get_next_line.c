@@ -6,11 +6,26 @@
 /*   By: dario <dario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:25:23 by darmarti          #+#    #+#             */
-/*   Updated: 2024/10/25 19:49:47 by dario            ###   ########.fr       */
+/*   Updated: 2024/10/28 18:18:23 by dario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*free_null(char **buffer, char **new_line)
+{
+	if (*new_line)
+	{
+		free(*new_line);
+		*new_line = NULL;
+	}
+	if (*buffer)
+	{
+		free(*buffer);
+		*buffer = NULL;
+	}
+	return (NULL);
+}
 
 static char	*ft_cleanline(char *line)
 {
@@ -18,11 +33,17 @@ static char	*ft_cleanline(char *line)
 	size_t	i;
 
 	i = 0;
+	if (line[0] == '\0')
+	{
+		free(line);
+		line = NULL;
+		return (NULL);
+	}
 	while (line[i] != '\n' && line[i])
 		++i;
 	clean_line = (char *)ft_calloc(i + 2, sizeof(char));
 	if (!clean_line)
-		return (NULL);
+		return (free(line), NULL);
 	i = 0;
 	while (line[i] != '\n' && line[i])
 	{
@@ -33,6 +54,8 @@ static char	*ft_cleanline(char *line)
 		clean_line[i] = '\n';
 	else
 		clean_line[i] = 3;
+	free(line);
+	line = NULL;
 	return (clean_line);
 }
 
@@ -56,6 +79,8 @@ static char	*ft_clean_last_buffer(char *buffer)
 	j = 0;
 	while (buffer[i] != '\0')
 		new_last_buffer[j++] = buffer[i++];
+	free(buffer);
+	buffer = NULL;
 	return (new_last_buffer);
 }
 
@@ -70,16 +95,17 @@ char	*get_next_line(int fd)
 		last_buffer[fd] = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	buffer = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0 || !buffer || !last_buffer[fd])
-		return (NULL);
+		return (free_null(&buffer, &last_buffer[fd]));
 	line = ft_strjoin(NULL, last_buffer[fd]);
 	bytes_read = 1;
 	while (!ft_strchr(buffer, '\n') && bytes_read > 0 && !ft_strchr(line, '\n'))
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
-			return (NULL);
+			return (free(line), line = NULL, free_null(&buffer, &last_buffer[fd]));
 		if (bytes_read == 0)
 			break ;
+		buffer[bytes_read] = '\0';
 		line = ft_strjoin(line, buffer);
 		last_buffer[fd] = ft_strjoin(last_buffer[fd], buffer);
 	}
