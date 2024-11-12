@@ -6,7 +6,7 @@
 /*   By: dario <dario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:25:23 by darmarti          #+#    #+#             */
-/*   Updated: 2024/10/28 18:18:23 by dario            ###   ########.fr       */
+/*   Updated: 2024/11/12 18:57:55 by dario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*free_null(char **buffer, char **new_line)
 	return (NULL);
 }
 
-static char	*ft_cleanline(char *line)
+static char	*ft_cleanline(char *line, char **last_buffer)
 {
 	char	*clean_line;
 	size_t	i;
@@ -35,10 +35,17 @@ static char	*ft_cleanline(char *line)
 	i = 0;
 	if (line[0] == '\0')
 	{
+		if (*last_buffer)
+		{
+			free(*last_buffer);
+			*last_buffer = NULL;
+		}
 		free(line);
 		line = NULL;
+
 		return (NULL);
 	}
+	//printf("\nPRUEBA:%c\n", line[0]);
 	while (line[i] != '\n' && line[i])
 		++i;
 	clean_line = (char *)ft_calloc(i + 2, sizeof(char));
@@ -53,9 +60,12 @@ static char	*ft_cleanline(char *line)
 	if (line[i] == '\n')
 		clean_line[i] = '\n';
 	else
-		clean_line[i] = 3;
+		clean_line[i] = '\0';
+	// else
+	// 	clean_line[i] = 3;
 	free(line);
 	line = NULL;
+
 	return (clean_line);
 }
 
@@ -110,7 +120,7 @@ char	*get_next_line(int fd)
 		last_buffer[fd] = ft_strjoin(last_buffer[fd], buffer);
 	}
 	last_buffer[fd] = ft_clean_last_buffer(last_buffer[fd]);
-	line = ft_cleanline(line);
+	line = ft_cleanline(line, &last_buffer[fd]);
 	free(buffer);
 	return (line);
 }

@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"libftprintf.h": "c",
+			"ft_printf.h": "c"
+		}
+	}
+}

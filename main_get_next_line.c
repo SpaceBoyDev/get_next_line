@@ -6,7 +6,7 @@
 /*   By: dario <dario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:27:41 by darmarti          #+#    #+#             */
-/*   Updated: 2024/10/28 18:04:03 by dario            ###   ########.fr       */
+/*   Updated: 2024/11/12 18:18:59 by dario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 
 int	main(void)
 {
-	int	fd;
-	int	fd2;
-	int	fd3;
+	int	zuzumba;
+	int	c;
+	int	empty;
+	int	one_char;
 	int	loops;
 
-	loops = 20;
-	fd = open("zuzumba.txt", O_RDONLY);
-	fd2 = open("main_get_next_line.c", O_RDONLY);
-	fd3 = open("empty.txt", O_RDONLY);
+	loops = 15;
+	zuzumba = open("zuzumba.txt", O_RDONLY);
+	c = open("main_get_next_line.c", O_RDONLY);
+	empty = open("empty.txt", O_RDONLY);
+	one_char = open("1char.txt", O_RDONLY);
 	while (loops > 0)
 	{
-		printf("%s", get_next_line(fd));
+		printf("%s", get_next_line(one_char));
 		--loops;
 	}
 	return (0);
