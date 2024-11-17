@@ -6,7 +6,7 @@
 /*   By: dario <dario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:25:23 by darmarti          #+#    #+#             */
-/*   Updated: 2024/11/17 20:48:01 by dario            ###   ########.fr       */
+/*   Updated: 2024/11/17 21:00:05 by dario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ char	*get_next_line(int fd)
 	bytes_read = 1;
 	while (!ft_strchr(buffer, '\n') && bytes_read > 0 && !ft_strchr(line, '\n'))
 	{
+		// size_t	prueba = 0;
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
 			return (free(line), line = NULL,
@@ -124,13 +125,13 @@ char	*get_next_line(int fd)
 		if (bytes_read == 0)
 			break ;
 		// printf("\nReadBytes -> %i\n", bytes_read);
+		buffer[bytes_read] = '\0';
 		line = ft_strjoin(line, buffer);
 		last_buffer[fd] = ft_strjoin(last_buffer[fd], buffer);
-		// size_t	prueba = 0;
 		// printf("PreCheckeando line...\n");
-		// while (line[prueba])
+		// while (buffer[prueba])
 		// {
-		// 	printf("char num %li es %c", prueba, line[prueba]);
+		// 	printf("char num %li es %c\n", prueba, buffer[prueba]);
 		// 	++prueba;
 		// }
 		// printf("Terminado check...\n");
@@ -140,14 +141,16 @@ char	*get_next_line(int fd)
 	// while (line[prueba])
 	// 	printf("char num %li es %c\n", prueba++, line[prueba]);
 
-	last_buffer[fd] = ft_clean_last_buffer(last_buffer[fd]);
+	// printf("\nCheckeando line...\n");
 	// while (last_buffer[fd][prueba])
 	// {
 	// 	printf("char num %li es %c\n", prueba, last_buffer[fd][prueba]);
 	// 	++prueba;
 	// }
+	last_buffer[fd] = ft_clean_last_buffer(last_buffer[fd]);
 	line = ft_cleanline(line, &last_buffer[fd]);
-	//printf("\nCheckeando line...\n");
+	//printf("Terminado check...\n");
+	// printf("\nCheckeando line...\n");
 	// prueba = 0;
 	// while (line[prueba])
 	// 	printf("char num %li es %c\n", prueba++, line[prueba]);
@@ -157,6 +160,6 @@ char	*get_next_line(int fd)
 	// 		printf("char num %li es %c", prueba, last_buffer[fd][prueba]);
 	// 		++prueba;
 	// 	}
-	// 	printf("Terminado check...\n");
+	// printf("Terminado check...\n");
 	return (free(buffer), line);
 }
