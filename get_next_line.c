@@ -6,7 +6,7 @@
 /*   By: dario <dario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:25:23 by darmarti          #+#    #+#             */
-/*   Updated: 2024/11/17 19:50:39 by dario            ###   ########.fr       */
+/*   Updated: 2024/11/17 20:48:01 by dario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static char	*ft_cleanline(char *line, char **last_buffer)
 	size_t	i;
 
 	i = 0;
+	//printf("\nLine[0] -> %c\n", line[0]);
 	if (line[0] == '\0')
 	{
 		if (*last_buffer)
@@ -86,7 +87,8 @@ static char	*ft_clean_last_buffer(char *buffer) //DA PROBLEMAS
 	i = 0;
 	while (buffer[i] != '\n' && buffer[i])
 		++i;
-	//++i;
+	if (buffer[i] == '\n')
+		++i;
 	//printf("\ni = %li\n", i);
 	new_last_buffer = ft_calloc((len - i + 1), sizeof(char));
 	if (!new_last_buffer)
@@ -125,15 +127,16 @@ char	*get_next_line(int fd)
 		line = ft_strjoin(line, buffer);
 		last_buffer[fd] = ft_strjoin(last_buffer[fd], buffer);
 		// size_t	prueba = 0;
+		// printf("PreCheckeando line...\n");
 		// while (line[prueba])
 		// {
-		// 	printf("char num %li es %c\n", prueba, line[prueba]);
+		// 	printf("char num %li es %c", prueba, line[prueba]);
 		// 	++prueba;
 		// }
-		//HASTA AQUI, LAST BUFFER Y LINE NO TIENEN BASURA
+		// printf("Terminado check...\n");
 	}
 	// printf("\nPreCheckeando line...\n");
-	//size_t	prueba = 0;
+	// size_t	prueba = 0;
 	// while (line[prueba])
 	// 	printf("char num %li es %c\n", prueba++, line[prueba]);
 
@@ -148,5 +151,12 @@ char	*get_next_line(int fd)
 	// prueba = 0;
 	// while (line[prueba])
 	// 	printf("char num %li es %c\n", prueba++, line[prueba]);
+	// printf("\nPreCheckeando line...\n");
+	// 	while (last_buffer[fd][prueba])
+	// 	{
+	// 		printf("char num %li es %c", prueba, last_buffer[fd][prueba]);
+	// 		++prueba;
+	// 	}
+	// 	printf("Terminado check...\n");
 	return (free(buffer), line);
 }
