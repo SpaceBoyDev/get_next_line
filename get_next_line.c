@@ -6,7 +6,7 @@
 /*   By: dario <dario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:25:23 by darmarti          #+#    #+#             */
-/*   Updated: 2024/11/17 19:41:39 by dario            ###   ########.fr       */
+/*   Updated: 2024/11/17 19:50:39 by dario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	*get_next_line(int fd)
 	buffer = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0 || !buffer || !last_buffer[fd])
 		return (free_null(&buffer, &last_buffer[fd]));
-	line = ft_strjoin(NULL, last_buffer[fd], 0);
+	line = ft_strjoin(NULL, last_buffer[fd]);
 	bytes_read = 1;
 	while (!ft_strchr(buffer, '\n') && bytes_read > 0 && !ft_strchr(line, '\n'))
 	{
@@ -122,8 +122,8 @@ char	*get_next_line(int fd)
 		if (bytes_read == 0)
 			break ;
 		// printf("\nReadBytes -> %i\n", bytes_read);
-		line = ft_strjoin(line, buffer, bytes_read);
-		last_buffer[fd] = ft_strjoin(last_buffer[fd], buffer, bytes_read);
+		line = ft_strjoin(line, buffer);
+		last_buffer[fd] = ft_strjoin(last_buffer[fd], buffer);
 		// size_t	prueba = 0;
 		// while (line[prueba])
 		// {

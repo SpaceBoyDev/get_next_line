@@ -6,7 +6,7 @@
 /*   By: dario <dario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:27:41 by darmarti          #+#    #+#             */
-/*   Updated: 2024/11/14 21:33:19 by dario            ###   ########.fr       */
+/*   Updated: 2024/11/17 19:47:19 by dario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(void)
 	int	c;
 	int	empty;
 	int	one_char;
+	int	one_line_no_nl;
 	int	loops;
 
 	loops = 2;
@@ -25,9 +26,10 @@ int	main(void)
 	c = open("main_get_next_line.c", O_RDONLY);
 	empty = open("empty.txt", O_RDONLY);
 	one_char = open("1char.txt", O_RDONLY);
+	one_line_no_nl = open("one_line_no_nl.txt", O_RDONLY);
 	while (loops > 0)
 	{
-		printf("%s", get_next_line(one_char));
+		printf("%s", get_next_line(one_line_no_nl));
 		--loops;
 	}
 	return (0);

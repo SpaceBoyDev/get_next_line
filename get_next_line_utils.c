@@ -6,7 +6,7 @@
 /*   By: dario <dario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:25:20 by darmarti          #+#    #+#             */
-/*   Updated: 2024/11/17 19:32:31 by dario            ###   ########.fr       */
+/*   Updated: 2024/11/17 19:49:58 by dario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,29 +52,17 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return ((unsigned char *)ptr);
 }
 
-void	ft_join(char *dest, const char *src, size_t *i, size_t max)
+void	ft_join(char *dest, const char *src, size_t *i)
 {
 	size_t	j;
 
 	j = 0;
-	if (max > 0)
-	{
-		while (src[j] && j < 1)
-			dest[(*i)++] = src[j++];
-		// printf("With max\nJ = %li", j);
-		dest[*i] = '\0';
-		//*(i)++;
-		//dest[*i] = '\n';
-	}
-	else
-	{
-		while (src[j])
-			dest[(*i)++] = src[j++];
-		// printf("Without max\n");
-	}
+	while (src[j])
+		dest[(*i)++] = src[j++];
+
 }
 
-char	*ft_strjoin(char *s1, char const *s2, size_t max)
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	size_t	i;
 	char	*str;
@@ -93,8 +81,8 @@ char	*ft_strjoin(char *s1, char const *s2, size_t max)
 		free((char *)s2);
 		return (NULL);
 	}
-	ft_join(str, s1, &i, max);
-	ft_join(str, s2, &i, max);
+	ft_join(str, s1, &i);
+	ft_join(str, s2, &i);
 	str[i] = '\0';
 	free(s1);
 	return (str);
