@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../../francinette/tests/get_next_line/fsoares"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"get_next_line.h": "c"
+		}
+	}
+}

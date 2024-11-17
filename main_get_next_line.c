@@ -6,7 +6,7 @@
 /*   By: dario <dario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:27:41 by darmarti          #+#    #+#             */
-/*   Updated: 2024/11/12 18:18:59 by dario            ###   ########.fr       */
+/*   Updated: 2024/11/14 21:33:19 by dario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(void)
 	int	one_char;
 	int	loops;
 
-	loops = 15;
+	loops = 2;
 	zuzumba = open("zuzumba.txt", O_RDONLY);
 	c = open("main_get_next_line.c", O_RDONLY);
 	empty = open("empty.txt", O_RDONLY);

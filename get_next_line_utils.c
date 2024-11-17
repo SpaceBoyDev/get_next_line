@@ -6,7 +6,7 @@
 /*   By: dario <dario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:25:20 by darmarti          #+#    #+#             */
-/*   Updated: 2024/11/12 18:03:49 by dario            ###   ########.fr       */
+/*   Updated: 2024/11/17 19:32:31 by dario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,31 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return ((unsigned char *)ptr);
 }
 
-void	ft_join(char *dest, const char *src, size_t *i)
+void	ft_join(char *dest, const char *src, size_t *i, size_t max)
 {
 	size_t	j;
 
 	j = 0;
-	while (src[j])
-		dest[(*i)++] = src[j++];
+	if (max > 0)
+	{
+		while (src[j] && j < 1)
+			dest[(*i)++] = src[j++];
+		// printf("With max\nJ = %li", j);
+		dest[*i] = '\0';
+		//*(i)++;
+		//dest[*i] = '\n';
+	}
+	else
+	{
+		while (src[j])
+			dest[(*i)++] = src[j++];
+		// printf("Without max\n");
+	}
 }
 
-char	*ft_strjoin(char *s1, char const *s2)
+char	*ft_strjoin(char *s1, char const *s2, size_t max)
 {
 	size_t	i;
-	size_t	s1_len;
-	size_t	s2_len;
 	char	*str;
 
 	i = 0;
@@ -75,17 +86,15 @@ char	*ft_strjoin(char *s1, char const *s2)
 		s2 = ft_calloc(1, sizeof(char));
 	if (!s1 || !s2)
 		return (NULL);
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	str = malloc((s1_len + s2_len + 1) * sizeof(char));
+	str = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!str)
 	{
 		free(s1);
 		free((char *)s2);
 		return (NULL);
 	}
-	ft_join(str, s1, &i);
-	ft_join(str, s2, &i);
+	ft_join(str, s1, &i, max);
+	ft_join(str, s2, &i, max);
 	str[i] = '\0';
 	free(s1);
 	return (str);
