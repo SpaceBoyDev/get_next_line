@@ -6,7 +6,7 @@
 /*   By: dario <dario@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 19:25:20 by darmarti          #+#    #+#             */
-/*   Updated: 2024/11/17 20:23:38 by dario            ###   ########.fr       */
+/*   Updated: 2024/11/17 21:04:07 by dario            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	ft_join(char *dest, const char *src, size_t *i)
 	j = 0;
 	while (src[j])
 		dest[(*i)++] = src[j++];
-
 }
 
 char	*ft_strjoin(char *s1, char const *s2)
