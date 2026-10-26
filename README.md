@@ -66,5 +66,4 @@ The files in `tests/` cover common edge cases, including:
 - `read(2)` — reading bytes from a file descriptor.
 - `open(2)` — opening files for testing.
 - `malloc(3)` and `free(3)` — dynamic memory management.
-- 42 project subject: **Get Next Line**.
 
